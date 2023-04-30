@@ -4,6 +4,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 //const morgan = require("morgan");
 const cors = require("cors");
+
 const dbConnection = require("./config/database");
 const ApiError = require("./utils/apiError");
 //const globalError = require("./middlewares/errorMiddleware");
