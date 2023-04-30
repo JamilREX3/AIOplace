@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 mountRoutes(app);
 
 app.use("*", (req, res, next) => {
-  app.use(globalError);
+  // go to app.use(globalError);
   next(new ApiError(`Can't find this route : ${req.originalUrl}`, 400));
 });
 
