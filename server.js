@@ -45,7 +45,7 @@ app.use("*", (req, res, next) => {
 });
 
 // Global error handling middleware for express
-app.use(globalError);
+//app.use(globalError);
 
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
