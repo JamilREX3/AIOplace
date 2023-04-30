@@ -49,6 +49,8 @@ app.use(globalError);
 
 const { PORT } = process.env;
 const server = app.listen(PORT, () => {
+  console.log("Hello world");
+  console.log(process.env.DB_NAME);
   console.log(`App running on port ${PORT}`);
 });
 
