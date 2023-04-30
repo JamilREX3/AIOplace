@@ -2,12 +2,12 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
-//const morgan = require("morgan");
+const morgan = require("morgan");
 const cors = require("cors");
 
 const dbConnection = require("./config/database");
 const ApiError = require("./utils/apiError");
-//const globalError = require("./middlewares/errorMiddleware");
+const globalError = require("./middlewares/errorMiddleware");
 const mountRoutes = require("./routes");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const compression = require("compression");
@@ -30,23 +30,21 @@ app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
 
-// if (process.env.NODE_ENV === "development") {
-//   app.use(morgan("dev"));
-//   //edited
-//   //todo
-//   console.log(`mode : ${process.env.NODE_ENV}`);
-// }
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+  console.log(`mode : ${process.env.NODE_ENV}`);
+}
 
 // Mount Routes
 mountRoutes(app);
 
-// app.use("*", (req, res, next) => {
-//   // go to app.use(globalError);
-//   next(new ApiError(`Can't find this route : ${req.originalUrl}`, 400));
-// });
+app.use("*", (req, res, next) => {
+  // go to app.use(globalError);
+  next(new ApiError(`Can't find this route : ${req.originalUrl}`, 400));
+});
 
-// Global error handling middleware for express
-//app.use(globalError);
+//Global error handling middleware for express
+app.use(globalError);
 
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
