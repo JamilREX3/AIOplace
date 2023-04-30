@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
-const morgan = require("morgan");
+//const morgan = require("morgan");
 const cors = require("cors");
 const dbConnection = require("./config/database");
 const ApiError = require("./utils/apiError");
@@ -29,12 +29,12 @@ app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-  //edited
-  //todo
-  //console.log(`mode : ${process.env.NODE_ENV}`);
-}
+// if (process.env.NODE_ENV === "development") {
+//   app.use(morgan("dev"));
+//   //edited
+//   //todo
+//   console.log(`mode : ${process.env.NODE_ENV}`);
+// }
 
 // Mount Routes
 mountRoutes(app);
@@ -47,7 +47,7 @@ app.use("*", (req, res, next) => {
 // Global error handling middleware for express
 app.use(globalError);
 
-const { PORT } = process.env;
+const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
   console.log("Hello world");
   console.log(process.env.DB_NAME);
