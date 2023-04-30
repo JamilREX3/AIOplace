@@ -3,13 +3,13 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 //const morgan = require("morgan");
-//const cors = require("cors");
+const cors = require("cors");
 const dbConnection = require("./config/database");
 const ApiError = require("./utils/apiError");
-const globalError = require("./middlewares/errorMiddleware");
+//const globalError = require("./middlewares/errorMiddleware");
 const mountRoutes = require("./routes");
 // eslint-disable-next-line import/no-extraneous-dependencies
-//const compression = require("compression");
+const compression = require("compression");
 
 dotenv.config({ path: "config.env" });
 
@@ -19,10 +19,10 @@ dbConnection();
 //express App
 const app = express();
 // enable other domains to access my application
-//app.use(cors());
-//app.options("*", cors());
-// compress all response
-//app.use(compression());
+app.use(cors());
+app.options("*", cors());
+//compress all response
+app.use(compression());
 
 // Middleware
 
