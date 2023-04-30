@@ -6,7 +6,7 @@ const {
   getUserValidator,
   updateUserValidator,
   updateLoggedUserValidator,
-} = require("../utils/validators/UserValidator");
+} = require("../utils/validators/userValidator");
 
 const {
   createUser,
