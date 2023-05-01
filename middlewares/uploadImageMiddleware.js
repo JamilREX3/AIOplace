@@ -5,10 +5,15 @@ const aws = require("aws-sdk");
 const multerS3 = require("multer-s3");
 const ApiError = require("../utils/apiError");
 
+// aws.config.update({
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   region: process.env.AWS_REGION,
+// });
 aws.config.update({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
+  secretAccessKey: "MysUUghBAXJ1jUbEBGI4rWWVuPDB9le6i7V3OTSw",
+  accessKeyId: "ASIA57IFXX7Y57K6Y7UE",
+  region: "eu-west-1",
 });
 
 const s3 = new aws.S3();
@@ -16,7 +21,8 @@ const s3 = new aws.S3();
 const multerOptions = () => {
   const multerStorage = multerS3({
     s3,
-    bucket: process.env.AWS_BUCKET_NAME,
+    //bucket: process.env.AWS_BUCKET_NAME,
+    bucket: "cyclic-jittery-red-hippo-eu-west-1",
     acl: "public-read",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
