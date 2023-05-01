@@ -12,6 +12,7 @@ const generateToken = require("../utils/generateToken");
 //     expiresIn: process.env.JWT_EXPIRE_TIME,
 //   });
 // };
+//fg
 
 exports.signup = asyncHandler(async (req, res, next) => {
   // todo create user
