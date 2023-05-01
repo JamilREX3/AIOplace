@@ -11,6 +11,7 @@ const globalError = require("./middlewares/errorMiddleware");
 const mountRoutes = require("./routes");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const compression = require("compression");
+const cloudinary = require("cloudinary").v2;
 
 dotenv.config({ path: "config.env" });
 
@@ -34,6 +35,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   console.log(`mode : ${process.env.NODE_ENV}`);
 }
+
+cloudinary.config({
+  cloud_name: "dsaube2fg",
+  api_key: "235483313461132",
+  api_secret: "nGbkgBvV5GT36pArdboXCd94xqs",
+});
 
 // Mount Routes
 mountRoutes(app);

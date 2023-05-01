@@ -94,13 +94,13 @@ productSchema.pre(/^find/, function (next) {
 
 const setImageUrl = (doc) => {
   if (doc.imageCover) {
-    const imageUrl = `${process.env.Base_URL}/products/${doc.imageCover}`;
+    const imageUrl = `${process.env.BASE_IMAGE_URL}/${doc.imageCover}`;
     doc.imageCover = imageUrl;
   }
   if (doc.images) {
     const imageList = [];
     doc.images.forEach((image) => {
-      const imageUrl = `${process.env.Base_URL}/products/${image}`;
+      const imageUrl = `${process.env.BASE_IMAGE_URL}/${image}`;
       imageList.push(imageUrl);
     });
     doc.images = imageList;
