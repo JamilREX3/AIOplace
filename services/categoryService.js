@@ -10,40 +10,22 @@ const fs = require("fs");
 const path = require("path");
 // upload single image
 exports.uploadCategoryImage = uploadSingleImage("image");
-// image processing and optimizing
-// exports.resizeImage = asyncHandler(async (req, res, next) => {
-//   const filename = `category-${uuidv4()}-${Date.now()}.jpeg`;
-//   await sharp(req.file.buffer)
-//     .resize(600, 600)
-//     .toFormat("jpeg")
-//     .jpeg({ quality: 90 })
-//     .toFile(`uploads/categories/${filename}`);
-//   req.body.image = filename;
-//   // save images in database
-//   // req.body.image= 'categories/'+filename;
-//   next();
-// });
 
-exports.resizeImage = asyncHandler(async (req, res, next) => {
+exports.resizeCategoryImage = asyncHandler(async (req, res, next) => {
   const filename = `category-${uuidv4()}-${Date.now()}`;
   const result = await sharp(req.file.buffer)
-    .resize(600, 600)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
+    .toFormat("webp")
+    .webp({ quality: 90 })
     .toBuffer();
-
   // Save the buffer to a file
   const filePath = path.join(__dirname, "..", "uploads", filename);
   fs.writeFileSync(filePath, result);
-
   // Upload the file to Cloudinary
   const uploadResult = await cloudinary.uploader.upload(filePath, {
     public_id: filename,
     folder: "categories",
   });
-
   console.log(uploadResult);
-
   req.body.image = `${uploadResult.public_id}.${uploadResult.format}`;
   next();
 });

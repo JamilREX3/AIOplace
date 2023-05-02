@@ -11,7 +11,7 @@ const {
 const {
   createUser,
   deleteUser,
-  resizeImage,
+  resizeUserImage: resizeImage,
   getUsers,
   updateUser,
   getUser,

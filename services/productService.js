@@ -6,6 +6,9 @@ const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
 const asyncHandler = require("express-async-handler");
 const { uploadMixOfImages } = require("../middlewares/uploadImageMiddleware");
+const fs = require("fs");
+const path = require("path");
+const cloudinary = require("cloudinary").v2;
 
 exports.uploadProductImages = uploadMixOfImages([
   {
@@ -57,32 +60,79 @@ exports.uploadProductImages = uploadMixOfImages([
 //   next();
 // });
 
+// exports.resizeProductImages = asyncHandler(async (req, res, next) => {
+//   if (req.files.imageCover) {
+//     const imageCoverFileName = `product-${uuidv4()}-${Date.now()}-cover.jpeg`;
+//     await sharp(req.files.imageCover[0].buffer)
+//       .resize(2000, 1333)
+//       .toFormat("jpeg")
+//       .jpeg({ quality: 95 })
+//       .toFile(`uploads/products/${imageCoverFileName}`);
+//     req.body.imageCover = imageCoverFileName;
+//   }
+//   if (req.files.images) {
+//     req.body.images = [];
+//     await Promise.all(
+//       req.files.images.map(async (img, index) => {
+//         const imageName = `product-${uuidv4()}-${Date.now()}-${index + 1}.jpeg`;
+//         await sharp(img.buffer)
+//           .resize(2000, 1333)
+//           .toFormat("jpeg")
+//           .jpeg({ quality: 95 })
+//           .toFile(`uploads/products/${imageName}`);
+//         // save in DB
+//         req.body.images.push(imageName);
+//       })
+//     );
+//   }
+
+//   next();
+// });
+
 exports.resizeProductImages = asyncHandler(async (req, res, next) => {
   if (req.files.imageCover) {
-    const imageCoverFileName = `product-${uuidv4()}-${Date.now()}-cover.jpeg`;
-    await sharp(req.files.imageCover[0].buffer)
-      .resize(2000, 1333)
-      .toFormat("jpeg")
-      .jpeg({ quality: 95 })
-      .toFile(`uploads/products/${imageCoverFileName}`);
-    req.body.imageCover = imageCoverFileName;
+    const imageCoverFileName = `product-${uuidv4()}-${Date.now()}-cover`;
+    const result = await sharp(req.files.imageCover[0].buffer)
+      .toFormat("webp")
+      .webp({ quality: 90 })
+      .toBuffer();
+    // Save the buffer to a file
+    const filePath = path.join(__dirname, "..", "uploads", imageCoverFileName);
+    fs.writeFileSync(filePath, result);
+    // Upload the file to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      public_id: imageCoverFileName,
+      folder: "products",
+    });
+    console.log(uploadResult);
+    req.body.imageCover = `${uploadResult.public_id}.${uploadResult.format}`;
   }
   if (req.files.images) {
     req.body.images = [];
     await Promise.all(
       req.files.images.map(async (img, index) => {
-        const imageName = `product-${uuidv4()}-${Date.now()}-${index + 1}.jpeg`;
-        await sharp(img.buffer)
+        const imageName = `product-${uuidv4()}-${Date.now()}-${index + 1}`;
+        const result = await sharp(img.buffer)
           .resize(2000, 1333)
           .toFormat("jpeg")
           .jpeg({ quality: 95 })
-          .toFile(`uploads/products/${imageName}`);
+          .toBuffer();
+        // Save the buffer to a file
+        const filePath = path.join(__dirname, "..", "uploads", imageName);
+        fs.writeFileSync(filePath, result);
+        // Upload the file to Cloudinary
+        const uploadResult = await cloudinary.uploader.upload(filePath, {
+          public_id: imageName,
+          folder: "products",
+        });
+        console.log(uploadResult);
         // save in DB
-        req.body.images.push(imageName);
+        req.body.images.push(
+          `${uploadResult.public_id}.${uploadResult.format}`
+        );
       })
     );
   }
-
   next();
 });
 

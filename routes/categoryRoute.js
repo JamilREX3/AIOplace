@@ -8,7 +8,7 @@ const {
   updateCategory,
   deleteCategory,
   uploadCategoryImage,
-  resizeImage,
+  resizeCategoryImage: resizeImage,
 } = require("../services/categoryService");
 const {
   getCategoryValidator,

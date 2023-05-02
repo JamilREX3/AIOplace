@@ -8,18 +8,30 @@ const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
 
 // upload single image
 exports.uploadBrandImage = uploadSingleImage("image");
+const cloudinary = require("cloudinary").v2;
+
+const fs = require("fs");
+const path = require("path");
 
 // image processing and optimizing
 exports.resizeImage = asyncHandler(async (req, res, next) => {
   if (req.file) {
-    const filename = `brand-${uuidv4()}-${Date.now()}.jpeg`;
-    await sharp(req.file.buffer)
-      .resize(600, 600)
-      .toFormat("jpeg")
-      .jpeg({ quality: 95 })
-      .toFile(`uploads/brands/${filename}`);
+    const filename = `brand-${uuidv4()}-${Date.now()}`;
+    const result = await sharp(req.file.buffer)
+      .toFormat("webp")
+      .webp({ quality: 90 })
+      .toBuffer();
+    // Save the buffer to a file
+    const filePath = path.join(__dirname, "..", "uploads", filename);
+    fs.writeFileSync(filePath, result);
+    // Upload the file to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      public_id: filename,
+      folder: "brands",
+    });
+    console.log(uploadResult);
     // save images in database
-    req.body.image = filename;
+    req.body.image = `${uploadResult.public_id}.${uploadResult.format}`;
   }
   next();
 });

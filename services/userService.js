@@ -7,23 +7,47 @@ const sharp = require("sharp");
 const ApiError = require("../utils/apiError");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const path = require("path");
 
 // upload single image
 exports.uploadUserImage = uploadSingleImage("profileImg");
 // image processing and optimizing
-exports.resizeImage = asyncHandler(async (req, res, next) => {
+exports.resizeUserImage = asyncHandler(async (req, res, next) => {
   if (req.file) {
-    const filename = `user-${uuidv4()}-${Date.now()}.jpeg`;
-    await sharp(req.file.buffer)
-      .resize(600, 600)
-      .toFormat("jpeg")
-      .jpeg({ quality: 95 })
-      .toFile(`uploads/users/${filename}`);
+    const filename = `user-${uuidv4()}-${Date.now()}`;
+    const result = await sharp(req.file.buffer)
+      .toFormat("webp")
+      .webp({ quality: 90 })
+      .toBuffer();
+    // Save the buffer to a file
+    const filePath = path.join(__dirname, "..", "uploads", filename);
+    fs.writeFileSync(filePath, result);
+    // Upload the file to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      public_id: filename,
+      folder: "users",
+    });
+    console.log(uploadResult);
     // save images in database
-    req.body.profileImg = filename;
+    req.body.profileImg = `${uploadResult.public_id}.${uploadResult.format}`;
   }
   next();
 });
+// exports.resizeUserImage = asyncHandler(async (req, res, next) => {
+//   if (req.file) {
+//     const filename = `user-${uuidv4()}-${Date.now()}.jpeg`;
+//     await sharp(req.file.buffer)
+//       .resize(600, 600)
+//       .toFormat("jpeg")
+//       .jpeg({ quality: 95 })
+//       .toFile(`uploads/users/${filename}`);
+//     // save images in database
+//     req.body.profileImg = filename;
+//   }
+//   next();
+// });
 exports.getUsers = factory.getAll(User);
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
