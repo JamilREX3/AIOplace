@@ -8,7 +8,8 @@ const Coupon = require("../models/couponModel");
 const calcTotalCartPrice = (cart) => {
   let totalPrice = 0;
   cart.cartItems.forEach((item) => {
-    totalPrice += item.quantity * item.price;
+    const price = item.priceAfterDiscount || item.price;
+    totalPrice += price * item.quantity;
   });
   cart.totalCartPrice = totalPrice;
   cart.totalPriceAfterDiscount = undefined;
@@ -16,7 +17,7 @@ const calcTotalCartPrice = (cart) => {
 };
 
 exports.addProductToCart = asyncHandler(async (req, res, next) => {
-  const { productId, color } = req.body;
+  const { productId, color, size } = req.body;
 
   let cart;
   const [product, cartResult] = await Promise.all([
@@ -43,7 +44,10 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   } else {
     // product exist is cart (just update the quantity)
     const productIndex = cart.cartItems.findIndex(
-      (item) => item.product.toString() === productId && item.color === color
+      (item) =>
+        item.product.toString() === productId &&
+        item.color === color &&
+        item.size === size
     );
     console.log(productIndex);
     // product exist :  just refresh the quantity
@@ -59,6 +63,7 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
       cart.cartItems.push({
         product: productId,
         color,
+        size,
         price: product.price,
       });
     }
@@ -131,7 +136,6 @@ exports.removeCartItem = asyncHandler(async (req, res, next) => {
     message: "item removed successfully",
     data: cart,
   });
-  //this.populate({ path: "user", select: "name profileImg" });
 
   //   if (!cart) {
   //     return next(new ApiError("there is no cart for this user"));

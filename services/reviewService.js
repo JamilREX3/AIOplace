@@ -15,16 +15,8 @@ exports.createFilterObject = (req, res, next) => {
 // configure nested route on CREATE
 exports.setProductIdToBody = (req, res, next) => {
   // Nested route
-
-  const review = Review.findById("ff");
-  review.save;
-
-  if (!req.body.product) {
-    req.body.product = req.params.productId;
-  }
-  if (!req.body.user) {
-    req.body.user = req.user._id;
-  }
+  if (!req.body.product) req.body.product = req.params.productId;
+  if (!req.body.user) req.body.user = req.user._id;
   next();
 };
 

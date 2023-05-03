@@ -14,6 +14,7 @@ const {
   updateBrand,
   resizeImage,
   uploadBrandImage,
+  filterBrandThatBelongToSpecificCat,
 } = require("../services/brandService");
 const AuthService = require("../services/authService");
 
@@ -23,7 +24,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getBrands)
+  .get(filterBrandThatBelongToSpecificCat, getBrands)
   .post(
     AuthService.protect,
     AuthService.allowedTo("admin", "manager"),

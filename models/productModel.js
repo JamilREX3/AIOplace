@@ -31,12 +31,13 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: [true, "product price is required"],
       trim: true,
-      max: [200000, "Too long product price"],
+      max: [200000000000000, "Too long product price"],
     },
     priceAfterDiscount: {
       type: Number,
     },
     colors: [String],
+    sizes: [String],
     imageCover: {
       type: String,
       required: [true, "the product image cover is required"],
@@ -47,7 +48,6 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: [true, "product category is required"],
     },
-
     subcategories: [
       {
         type: mongoose.Schema.ObjectId,
@@ -58,13 +58,11 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Brand",
     },
-
     ratingsAverage: {
       type: Number,
       min: [1, "Rating must be above or equal 1"],
       max: [5, "Rating must be below or equal 5"],
     },
-
     ratingsQuantity: {
       type: Number,
       default: 0,

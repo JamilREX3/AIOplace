@@ -13,6 +13,15 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const path = require("path");
 
+exports.filterBrandThatBelongToSpecificCat = asyncHandler(
+  async (req, res, next) => {
+    if (req.body.categoryId) {
+      req.filterObj = { categories: req.body.categoryId };
+    }
+    next();
+  }
+);
+
 // image processing and optimizing
 exports.resizeImage = asyncHandler(async (req, res, next) => {
   if (req.file) {
