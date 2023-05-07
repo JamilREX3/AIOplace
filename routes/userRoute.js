@@ -35,6 +35,8 @@ router.put("/changeMyPassword", AuthService.protect, updateLoggedUserPassword);
 router.put(
   "/changeMe",
   AuthService.protect,
+  uploadUserImage,
+  resizeImage,
   updateLoggedUserValidator,
   updateLoggedUserDate
 );
