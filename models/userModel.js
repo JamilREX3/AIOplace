@@ -63,6 +63,27 @@ const userScheme = new mongoose.Schema(
   { timestamps: true }
 );
 
+const setImageUrl = (doc) => {
+  if (doc.profileImg) {
+    const imageUrl = `${process.env.BASE_IMAGE_URL}/${doc.profileImg}`;
+    doc.profileImg = imageUrl;
+    console.log(`new doooooooooc:${doc}`);
+  }
+};
+
+userScheme.post("findByIdAndUpdate", (doc) => {
+  setImageUrl(doc);
+});
+
+userScheme.post("init", (doc) => {
+  setImageUrl(doc);
+});
+
+// reviewScheme.post("deleteOne", { document: true }, async function () {
+//   console.log("ssssssssssssssssssssssssss");
+//   await this.constructor.calcAverageRatingsAndQuantity(this.product);
+// });
+
 userScheme.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
