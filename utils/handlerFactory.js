@@ -58,9 +58,10 @@ exports.getAll = (Model) =>
   asyncHandler(async (req, res) => {
     let filter = {};
     if (req.filterObj) {
+      //console.log(`req.filterObj: ${req.filterObj}`);
       filter = req.filterObj;
     }
-
+    //console.log(`filter : ${filter.categoryId}`);
     const documentsCount = await Model.countDocuments();
     const apiFeatures = new ApiFeatures(Model.find(filter), req.query)
       .searching()

@@ -6,6 +6,7 @@ const {
   getUserValidator,
   updateUserValidator,
   updateLoggedUserValidator,
+  updateLoggedUserPasswordValidator,
 } = require("../utils/validators/userValidator");
 
 const {
@@ -31,7 +32,12 @@ router
   .put(changeUserPasswordValidator, changeUserPassword);
 
 router.route("/me").get(AuthService.protect, getLoggedUserDate, getUser);
-router.put("/changeMyPassword", AuthService.protect, updateLoggedUserPassword);
+router.put(
+  "/changeMyPassword",
+  AuthService.protect,
+  updateLoggedUserPasswordValidator,
+  updateLoggedUserPassword
+);
 router.put(
   "/changeMe",
   AuthService.protect,

@@ -1,0 +1,268 @@
+{
+  "results": 10,
+  "paginationResult": {
+    "currentpage": 1,
+    "limit": 50,
+    "numberOfPages": 2,
+    "next": 2
+  },
+  "data": [
+    {
+      "_id": "645ba565de58453e647f7523",
+      "title": "The Midnight Library by Matt Haig",
+      "slug": "the-midnight-library-by-matt-haig",
+      "description": "A novel about a woman who finds herself in a library where each book represents a different life she could have lived.",
+      "quantity": 15,
+      "sold": 10,
+      "price": 26.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbb"],
+      "brand": "645a072219b8556091c94f57",
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:08:37.279Z",
+      "updatedAt": "2023-05-10T14:09:20.596Z",
+      "id": "645ba565de58453e647f7523"
+    },
+    {
+      "_id": "645ba5e2de58453e647f752d",
+      "title": "Becoming by Michelle Obama",
+      "slug": "becoming-by-michelle-obama",
+      "description": "A memoir by the former first lady of the United States that chronicles her personal and professional journey.",
+      "quantity": 20,
+      "sold": 15,
+      "price": 19.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbd"],
+      "brand": "645a072219b8556091c94f5a",
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:10:42.545Z",
+      "updatedAt": "2023-05-10T14:10:42.545Z",
+      "id": "645ba5e2de58453e647f752d"
+    },
+    {
+      "_id": "645ba5f5de58453e647f7537",
+      "title": "The Boy, the Mole, the Fox and the Horse by Charlie Mackesy",
+      "slug": "the-boy-the-mole-the-fox-and-the-horse-by-charlie-mackesy",
+      "description": "A book of illustrations and wise words that explore the universal themes of friendship, kindness, and hope.",
+      "quantity": 10,
+      "sold": 8,
+      "price": 22.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbf"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:11:01.218Z",
+      "updatedAt": "2023-05-10T14:11:01.218Z",
+      "id": "645ba5f5de58453e647f7537"
+    },
+    {
+      "_id": "645ba602de58453e647f753d",
+      "title": "The Four Winds by Kristin Hannah",
+      "slug": "the-four-winds-by-kristin-hannah",
+      "description": "A historical novel about a woman who faces the challenges of the Dust Bowl and the Great Depression in Texas.",
+      "quantity": 12,
+      "sold": 9,
+      "price": 28.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbb"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:11:14.030Z",
+      "updatedAt": "2023-05-10T14:11:14.030Z",
+      "id": "645ba602de58453e647f753d"
+    },
+    {
+      "_id": "645ba614de58453e647f7547",
+      "title": "Atomic Habits by James Clear",
+      "slug": "atomic-habits-by-james-clear",
+      "description": "A self-help book that offers practical strategies for building good habits and breaking bad ones.",
+      "quantity": 18,
+      "sold": 12,
+      "price": 16.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbd"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:11:32.562Z",
+      "updatedAt": "2023-05-10T14:11:32.562Z",
+      "id": "645ba614de58453e647f7547"
+    },
+    {
+      "_id": "645ba621de58453e647f754d",
+      "title": "The Vanishing Half by Brit Bennett",
+      "slug": "the-vanishing-half-by-brit-bennett",
+      "description": "A novel that explores the lives of twin sisters who ran away from their small Southern town at age 16 and chose different racial identities.",
+      "quantity": 14,
+      "sold": 11,
+      "price": 24.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbb"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:11:45.415Z",
+      "updatedAt": "2023-05-10T14:11:45.415Z",
+      "id": "645ba621de58453e647f754d"
+    },
+    {
+      "_id": "645ba62dde58453e647f7553",
+      "title": "Salt, Fat, Acid, Heat by Samin Nosrat",
+      "slug": "salt-fat-acid-heat-by-samin-nosrat",
+      "description": "A cookbook that teaches the four elements of good cooking and how to apply them in any dish.",
+      "quantity": 10,
+      "sold": 7,
+      "price": 37.5,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dc1"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:11:57.344Z",
+      "updatedAt": "2023-05-10T14:11:57.344Z",
+      "id": "645ba62dde58453e647f7553"
+    },
+    {
+      "_id": "645ba640de58453e647f7559",
+      "title": "The Body Keeps the Score by Bessel van der Kolk",
+      "slug": "the-body-keeps-the-score-by-bessel-van-der-kolk",
+      "description": "A book that explains how trauma affects the body and mind, and offers innovative treatments for recovery.",
+      "quantity": 16,
+      "sold": 13,
+      "price": 18.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbd"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:12:16.248Z",
+      "updatedAt": "2023-05-10T14:12:16.248Z",
+      "id": "645ba640de58453e647f7559"
+    },
+    {
+      "_id": "645ba64ede58453e647f755f",
+      "title": "The Invisible Life of Addie LaRue by V.E. Schwab",
+      "slug": "the-invisible-life-of-addie-larue-by-v.e.-schwab",
+      "description": "A fantasy novel about a woman who makes a deal with the devil to live forever, but is cursed to be forgotten by everyone she meets.",
+      "quantity": 12,
+      "sold": 9,
+      "price": 26.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dbb"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:12:30.316Z",
+      "updatedAt": "2023-05-10T14:12:30.316Z",
+      "id": "645ba64ede58453e647f755f"
+    },
+    {
+      "_id": "645ba65ade58453e647f7565",
+      "title": "Lonely Planet Japan",
+      "slug": "lonely-planet-japan",
+      "description": "A travel guide that covers the best attractions, experiences, and tips for visiting Japan.",
+      "quantity": 8,
+      "sold": 5,
+      "price": 29.99,
+      "colors": [],
+      "sizes": [],
+      "images": [],
+      "category": {
+        "_id": "645a070919b8556091c94db9",
+        "name": "Books"
+      },
+      "subcategories": ["645a070919b8556091c94dc3"],
+      "ratingsQuantity": 0,
+      "createdAt": "2023-05-10T14:12:42.091Z",
+      "updatedAt": "2023-05-10T14:12:42.091Z",
+      "id": "645ba65ade58453e647f7565"
+    }
+  ]
+}
+
+// {
+//     "data": [
+//         {
+//             "_id": "645a071019b8556091c94e48",
+//             "name": "Mobile Accessories",
+//             "slug": "mobile-accessories",
+//             "createdAt": "2023-05-09T08:40:48.795Z",
+//             "updatedAt": "2023-05-09T08:40:48.795Z",
+//             "__v": 0
+//         },
+//         {
+//             "_id": "645a070519b8556091c94d6b",
+//             "name": "Clothing",
+//             "slug": "clothing",
+//             "createdAt": "2023-05-09T08:40:37.313Z",
+//             "updatedAt": "2023-05-09T08:40:37.313Z",
+//             "__v": 0
+//         },
+//         {
+//             "_id": "645a070419b8556091c94d5e",
+//             "name": "Cars",
+//             "slug": "cars",
+//             "createdAt": "2023-05-09T08:40:36.712Z",
+//             "updatedAt": "2023-05-09T08:40:36.712Z",
+//             "__v": 0
+//         },
+//         {
+//             "_id": "645a071119b8556091c94e5c",
+//             "name": "Mobiles",
+//             "slug": "mobiles",
+//             "createdAt": "2023-05-09T08:40:49.736Z",
+//             "updatedAt": "2023-05-09T08:40:49.736Z",
+//             "__v": 0
+//         },
+//         {
+//             "_id": "645a070919b8556091c94db9",
+//             "name": "Books",
+//             "slug": "books",
+//             "createdAt": "2023-05-09T08:40:41.126Z",
+//             "updatedAt": "2023-05-09T08:40:41.126Z",
+//             "__v": 0
+//         }
+//     ]
+// }

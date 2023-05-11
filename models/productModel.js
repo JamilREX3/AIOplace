@@ -40,7 +40,8 @@ const productSchema = new mongoose.Schema(
     sizes: [String],
     imageCover: {
       type: String,
-      required: [true, "the product image cover is required"],
+      //todo: remove
+      //required: [true, "the product image cover is required"],
     },
     images: [String],
     category: {
@@ -89,17 +90,25 @@ productSchema.pre(/^find/, function (next) {
   });
   next();
 });
+// todo : edit set image Url to all models
 
 const setImageUrl = (doc) => {
-  if (doc.imageCover) {
+  if (
+    doc.imageCover &&
+    !doc.imageCover.startsWith(process.env.BASE_IMAGE_URL)
+  ) {
     const imageUrl = `${process.env.BASE_IMAGE_URL}/${doc.imageCover}`;
     doc.imageCover = imageUrl;
   }
   if (doc.images) {
     const imageList = [];
     doc.images.forEach((image) => {
-      const imageUrl = `${process.env.BASE_IMAGE_URL}/${image}`;
-      imageList.push(imageUrl);
+      if (!image.startsWith(process.env.BASE_IMAGE_URL)) {
+        const imageUrl = `${process.env.BASE_IMAGE_URL}/${image}`;
+        imageList.push(imageUrl);
+      } else {
+        imageList.push(image);
+      }
     });
     doc.images = imageList;
   }
@@ -115,3 +124,16 @@ productSchema.post("save", (doc) => {
 });
 
 module.exports = mongoose.model("Product", productSchema);
+
+// {
+//   "_id": "645a071919b8556091c94ec4",
+//   "name": "Apple",
+//   "slug": "apple",
+//   "categories": [
+//       "645a070519b8556091c94d78",
+//       "645a071119b8556091c94e5c",
+//       "645a071119b8556091c94e55"
+//   ],
+//   "createdAt": "2023-05-09T08:40:57.294Z",
+//   "updatedAt": "2023-05-09T08:41:22.318Z"
+// }

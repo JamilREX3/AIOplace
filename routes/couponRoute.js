@@ -9,9 +9,13 @@ const {
 } = require("../services/couponService");
 const AuthService = require("../services/authService");
 
+// const cc = require("./cc");
+
 const router = express.Router();
 
 //router.use("/:categoryId/subcategories", subCategoryRoute);
+
+// router.post("/cc", cc);
 
 router
   .route("/")

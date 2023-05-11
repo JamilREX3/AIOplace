@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 const sharp = require("sharp");
 const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
 const cloudinary = require("cloudinary").v2;
+const Product = require("../models/productModel");
 
 const fs = require("fs");
 const path = require("path");
@@ -28,6 +29,56 @@ exports.resizeCategoryImage = asyncHandler(async (req, res, next) => {
   console.log(uploadResult);
   req.body.image = `${uploadResult.public_id}.${uploadResult.format}`;
   next();
+});
+
+// orderSchema.pre(/^find/, function (next) {
+//   this.populate([
+//     {
+//       path: "user",
+//       select: "name profileImg email phone",
+//     },
+//     {
+//       path: "cartItems.product",
+//       select: "title imageCover",
+//     },
+//   ]);
+//   next();
+// });
+
+//top 6 depend on products count
+exports.getTop6Categories = asyncHandler(async (req, res, next) => {
+  const topCategories = await Product.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { count: -1 },
+    },
+    {
+      $limit: 6,
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "_id",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    //populate
+    {
+      $unwind: "$category",
+    },
+    //changes root and format
+    {
+      $replaceRoot: { newRoot: "$category" },
+    },
+  ]);
+
+  res.status(200).json({ data: topCategories });
 });
 
 exports.getCategories = factory.getAll(Category);

@@ -13,10 +13,11 @@ exports.setCategoryIdToBody = (req, res, next) => {
 // configure nested route on GET
 exports.createFilterObject = (req, res, next) => {
   let filterObject = {};
+  console.log(req.params);
   if (req.params.categoryId) {
     filterObject = { category: req.params.categoryId };
   }
-  req.filterObject = filterObject;
+  req.filterObj = filterObject;
   next();
 };
 

@@ -9,6 +9,7 @@ const {
   deleteCategory,
   uploadCategoryImage,
   resizeCategoryImage,
+  getTop6Categories,
 } = require("../services/categoryService");
 const {
   getCategoryValidator,
@@ -19,6 +20,8 @@ const {
 const AuthService = require("../services/authService");
 
 const router = express.Router();
+
+router.get("/top6", getTop6Categories);
 
 router.use("/:categoryId/subcategories", subCategoryRoute);
 

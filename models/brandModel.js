@@ -1,5 +1,3 @@
-//// HIIIIIIIIIIIIIIIIIIIIIIII
-
 const mongoose = require("mongoose");
 // 1-Create Scheme
 const brandScheme = new mongoose.Schema(
@@ -8,7 +6,7 @@ const brandScheme = new mongoose.Schema(
       type: String,
       required: [true, "Brand required"],
       unique: [true, "Brand most be unique"],
-      minLength: [3, "Too short Brand name"],
+      minLength: [1, "Too short Brand name"],
       maxLength: [32, "Too short Brand name"],
     }, // Slug make A and B => a-and-b
     slug: {

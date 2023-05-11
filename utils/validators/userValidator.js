@@ -152,3 +152,28 @@ exports.updateLoggedUserValidator = [
   check("profileImg").optional(),
   validatorMiddleware,
 ];
+
+exports.updateLoggedUserPasswordValidator = [
+  //check("id").isMongoId().withMessage("Invalid user id format"),
+  body("currentPassword")
+    .notEmpty()
+    .withMessage("you must enter your current password required"),
+  check("password")
+    .notEmpty()
+    .withMessage("you must enter new password")
+    .custom(async (value, { req }) => {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        throw new Error("there is no user for this id");
+      }
+      const isCorrectPassword = await bcrypt.compare(
+        req.body.currentPassword,
+        user.password
+      );
+      if (!isCorrectPassword) {
+        throw new Error("incorrect current password");
+      }
+      return true;
+    }),
+  validatorMiddleware,
+];

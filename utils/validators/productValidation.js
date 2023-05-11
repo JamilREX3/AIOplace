@@ -47,7 +47,8 @@ exports.createProductValidator = [
     .optional()
     .isArray()
     .withMessage("colors should be array of Strings"),
-  check("imageCover").notEmpty().withMessage("Product image cover is required"),
+  // todo : uncomment image cover validation
+  //check("imageCover").notEmpty().withMessage("Product image cover is required"),
 
   check("images")
     .optional()
@@ -142,12 +143,14 @@ exports.getProductValidator = [
 ];
 exports.updateProductValidator = [
   check("id").isMongoId().withMessage("Invalid ID format"),
-  body("title").optional().custom((val, { req }) => {
-    if (val) {
-      req.body.slug = slugify(val);
-    }
-    return true;
-  }),
+  body("title")
+    .optional()
+    .custom((val, { req }) => {
+      if (val) {
+        req.body.slug = slugify(val);
+      }
+      return true;
+    }),
   validatorMiddleware,
 ];
 exports.deleteProductValidator = [
