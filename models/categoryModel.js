@@ -19,7 +19,7 @@ const categoryScheme = new mongoose.Schema(
 );
 
 const setImageUrl = (doc) => {
-  if (doc.image) {
+  if (doc.image && !doc.image.startsWith(process.env.BASE_IMAGE_URL)) {
     const imageUrl = `${process.env.BASE_IMAGE_URL}/${doc.image}`;
     doc.image = imageUrl;
   }

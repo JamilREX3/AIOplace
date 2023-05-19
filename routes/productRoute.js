@@ -10,6 +10,7 @@ const {
   updateProduct,
   resizeProductImages,
   uploadProductImages,
+  getProductsSizes,
 } = require("../services/productService");
 const {
   createProductValidator,
@@ -17,7 +18,10 @@ const {
   getProductValidator,
   updateProductValidator,
 } = require("../utils/validators/productValidation");
+
 const router = express.Router();
+
+router.get("/sizes/:categoryId", getProductsSizes);
 
 router.use("/:productId/reviews", reviewRoute);
 

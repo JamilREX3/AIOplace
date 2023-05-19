@@ -14,13 +14,9 @@ exports.uploadCategoryImage = uploadSingleImage("image");
 
 exports.resizeCategoryImage = asyncHandler(async (req, res, next) => {
   const filename = `category-${uuidv4()}-${Date.now()}`;
-  const result = await sharp(req.file.buffer)
-    .toFormat("webp")
-    .webp({ quality: 90 })
-    .toBuffer();
   // Save the buffer to a file
   const filePath = path.join(__dirname, "..", "uploads", filename);
-  fs.writeFileSync(filePath, result);
+  fs.writeFileSync(filePath, req.file.buffer);
   // Upload the file to Cloudinary
   const uploadResult = await cloudinary.uploader.upload(filePath, {
     public_id: filename,

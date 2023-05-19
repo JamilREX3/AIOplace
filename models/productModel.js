@@ -124,16 +124,3 @@ productSchema.post("save", (doc) => {
 });
 
 module.exports = mongoose.model("Product", productSchema);
-
-// {
-//   "_id": "645a071919b8556091c94ec4",
-//   "name": "Apple",
-//   "slug": "apple",
-//   "categories": [
-//       "645a070519b8556091c94d78",
-//       "645a071119b8556091c94e5c",
-//       "645a071119b8556091c94e55"
-//   ],
-//   "createdAt": "2023-05-09T08:40:57.294Z",
-//   "updatedAt": "2023-05-09T08:41:22.318Z"
-// }

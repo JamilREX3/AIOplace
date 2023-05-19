@@ -1,5 +1,3 @@
-const Product = require("../models/productModel");
-
 class ApiFeatures {
   constructor(mongooseQuery, queryString) {
     this.mongooseQuery = mongooseQuery;
