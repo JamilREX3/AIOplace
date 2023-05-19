@@ -1,6 +1,6 @@
 const { check } = require("express-validator");
-const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 const slugify = require("slugify");
+const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 const User = require("../../models/userModel");
 
 exports.loginValidator = [
@@ -8,10 +8,13 @@ exports.loginValidator = [
     .notEmpty()
     .withMessage("Email is required")
     .isEmail() //
-    .withMessage("Invalid Email address format"),
-
+    .withMessage("Invalid Email address format")
+    .custom((val, { req }) => {
+      console.log(`val : ${val}`);
+      console.log(`req.body : ${req.body}`);
+      return true;
+    }),
   check("password").notEmpty().withMessage("Password is required"),
-
   validatorMiddleware,
 ];
 
