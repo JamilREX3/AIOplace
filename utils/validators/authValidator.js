@@ -12,6 +12,7 @@ exports.loginValidator = [
     .custom((val, { req }) => {
       console.log(`val : ${val}`);
       console.log(`req.body : ${req.body}`);
+      console.log(JSON.stringify(req.body));
       return true;
     }),
   check("password").notEmpty().withMessage("Password is required"),
