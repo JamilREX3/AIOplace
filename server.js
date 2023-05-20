@@ -37,9 +37,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 cloudinary.config({
-  cloud_name: "dsaube2fg",
-  api_key: "235483313461132",
-  api_secret: "nGbkgBvV5GT36pArdboXCd94xqs",
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Mount Routes

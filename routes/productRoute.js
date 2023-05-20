@@ -25,14 +25,17 @@ router.get("/sizes/:categoryId", getProductsSizes);
 
 router.use("/:productId/reviews", reviewRoute);
 
-router.route("/").get(getProducts).post(
-  AuthService.protect,
-  AuthService.allowedTo("admin", "manager"),
-  //uploadProductImages,
-  //resizeProductImages,
-  createProductValidator,
-  createProduct
-);
+router
+  .route("/")
+  .get(getProducts)
+  .post(
+    AuthService.protect,
+    AuthService.allowedTo("admin", "manager"),
+    uploadProductImages,
+    resizeProductImages,
+    createProductValidator,
+    createProduct
+  );
 router.route("/:id").get(getProductValidator, getProduct);
 router
   .route("/:id")
