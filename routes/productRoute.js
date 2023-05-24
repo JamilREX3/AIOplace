@@ -27,7 +27,7 @@ router.use("/:productId/reviews", reviewRoute);
 
 router
   .route("/")
-  .get(getProducts)
+  .get(AuthService.protect, getProducts)
   .post(
     AuthService.protect,
     AuthService.allowedTo("admin", "manager"),

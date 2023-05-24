@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const ApiFeatures = require("../utils/apiFeatures");
+const productModel = require("../models/productModel");
 
 exports.deleteOne = (Model) =>
   asyncHandler(async (req, res, next) => {
@@ -60,7 +61,6 @@ exports.getAll = (Model) =>
     if (req.filterObj) {
       filter = req.filterObj;
     }
-    //console.log(`filter : ${filter.categoryId}`);
     const documentsCount = await Model.countDocuments();
     const apiFeatures = new ApiFeatures(Model.find(filter), req.query)
       .searching()
@@ -69,7 +69,26 @@ exports.getAll = (Model) =>
       .sorting()
       .paginate(documentsCount);
     const { mongooseQuery, paginationResult } = apiFeatures;
-    const documents = await mongooseQuery;
+    let documents = await mongooseQuery;
+
+    // check if the user is logged in
+    if (req.user) {
+      // convert documents to plain JavaScript objects
+      documents = documents.map((document) => document.toObject());
+
+      // loop through each document
+      documents.forEach((document) => {
+        // check if the document is in the user's wishlist
+        if (req.user.wishlist.includes(document._id)) {
+          // set the isInWishList field to true
+          document.isInWishList = true;
+        } else {
+          // set the isInWishList field to false
+          document.isInWishList = false;
+        }
+      });
+    }
+
     res
       .status(200)
       .json({ results: documents.length, paginationResult, data: documents });

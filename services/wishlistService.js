@@ -3,17 +3,18 @@ const User = require("../models/userModel");
 //const ApiError = require("../utils/apiError");
 
 exports.addProductToWishlist = asyncHandler(async (req, res, next) => {
-  await User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user._id,
     {
       // add product to wishlist without repeating
-      $addToSet: { wishList: req.body.productId },
+      $addToSet: { wishlist: req.body.productId },
     },
     { new: true }
   );
   res.status(200).json({
     status: "success",
     message: "Product added to wishlist successfully",
+    data: user.wishlist,
   });
 });
 
