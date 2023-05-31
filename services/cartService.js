@@ -17,7 +17,7 @@ const calcTotalCartPrice = (cart) => {
 };
 
 exports.addProductToCart = asyncHandler(async (req, res, next) => {
-  const { productId, color, size } = req.body;
+  const { productId, color, size, quantity } = req.body;
 
   let cart;
   const [product, cartResult] = await Promise.all([
@@ -38,6 +38,7 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
           product: productId,
           color,
           price: product.price,
+          quantity: quantity,
         },
       ],
     });
@@ -55,15 +56,23 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
       // catch and handle old item
       const cartItem = cart.cartItems[productIndex];
       // increase its quantity
-      cartItem.quantity += 1;
+
+      if (quantity) {
+        cartItem.quantity += quantity;
+      } else {
+        cartItem.quantity += 1;
+      }
       // replace with updated quantity
       cart.cartItems[productIndex] = cartItem;
-    } else {
+    }
+    // if product doesn't exist
+    else {
       // product not exist :  push product to cart directly
       cart.cartItems.push({
         product: productId,
         color,
         size,
+        quantity: quantity,
         price: product.price,
       });
     }
