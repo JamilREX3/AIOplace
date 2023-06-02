@@ -19,14 +19,18 @@ exports.addProductToWishlist = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteProductFromWishlist = asyncHandler(async (req, res, next) => {
-  await User.findByIdAndUpdate(
+  console.log("delllllllllllllleting from wishlist");
+  console.log(req.user._id);
+  console.log(req.params.productId);
+  const user = await User.findByIdAndUpdate(
     req.user._id,
     {
       // remove product from wishlist without repeating
-      $pull: { wishList: req.params.productId },
+      $pull: { wishlist: req.params.productId },
     },
     { new: true }
   );
+  console.log(user);
   res.status(200).json({
     status: "success",
     message: "Product removed from wishlist successfully",

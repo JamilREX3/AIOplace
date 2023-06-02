@@ -26,9 +26,9 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   ]);
   cart = cartResult;
 
-  //const product = await Product.findById(productId);
-  // get cart for logged user
-  //let cart = await Cart.findOne({ user: req.user._id });
+  // Check if product has priceAfterDiscount
+  const price = product.priceAfterDiscount || product.price;
+
   if (!cart) {
     // create cart for this user with product
     cart = await Cart.create({
@@ -38,7 +38,7 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
           product: productId,
           color,
           size,
-          price: product.price,
+          price,
           quantity: quantity,
         },
       ],
@@ -52,7 +52,7 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
         item.size === size
     );
     console.log(productIndex);
-    // product exist :  just refresh the quantity
+    // product exist : just refresh the quantity
     if (productIndex > -1) {
       // catch and handle old item
       const cartItem = cart.cartItems[productIndex];
@@ -68,16 +68,17 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
     }
     // if product doesn't exist
     else {
-      // product not exist :  push product to cart directly
+      // product not exist : push product to cart directly
       cart.cartItems.push({
         product: productId,
         color,
         size,
         quantity: quantity,
-        price: product.price,
+        price,
       });
     }
   }
+
   calcTotalCartPrice(cart);
   await cart.save();
   res.status(200).json({
